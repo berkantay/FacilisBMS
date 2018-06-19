@@ -39,6 +39,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx_hal.h"
 
+extern DMA_HandleTypeDef hdma_adc;
+
 extern void _Error_Handler(char *, int);
 /* USER CODE BEGIN 0 */
 
@@ -94,9 +96,16 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc) {
 		GPIO_InitStruct.Pull = GPIO_NOPULL;
 		HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-		/* USER CODE BEGIN ADC1_MspInit 1 */
-
-		/* USER CODE END ADC1_MspInit 1 */
+		hdma_adc.Instance = DMA1_Channel1;
+		hdma_adc.Init.Direction = DMA_PERIPH_TO_MEMORY;
+		hdma_adc.Init.PeriphInc = DMA_PINC_DISABLE;
+		hdma_adc.Init.MemInc = DMA_MINC_ENABLE;
+		hdma_adc.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+		hdma_adc.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
+		hdma_adc.Init.Mode = DMA_CIRCULAR;
+		hdma_adc.Init.Priority = DMA_PRIORITY_LOW;
+		HAL_DMA_Init(&hdma_adc);
+		__HAL_LINKDMA(hadc,DMA_Handle,hdma_adc);
 	}
 
 }
@@ -123,7 +132,7 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc) {
 						| GPIO_PIN_7);
 
 		/* USER CODE BEGIN ADC1_MspDeInit 1 */
-
+		HAL_DMA_DeInit(hadc->DMA_Handle);
 		/* USER CODE END ADC1_MspDeInit 1 */
 	}
 

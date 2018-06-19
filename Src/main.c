@@ -14,29 +14,33 @@
 #define LV_LED_ON()  	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_SET)
 
 ADC_HandleTypeDef hadc;
+DMA_HandleTypeDef hdma_adc;
 
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_ADC_Init(void);
+static void MX_DMA_Init(void);
 
-uint16_t temp = 0;
+uint32_t temp[1];
+uint32_t buffer[1];
+
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
+	temp[0] = buffer[0];
+}
 
 int main(void) {
 	HAL_Init();
 
 	SystemClock_Config();
 	MX_GPIO_Init();
+	MX_DMA_Init();
 	MX_ADC_Init();
+	HAL_ADC_Start_DMA(&hadc, buffer, 1);
 
-	HAL_ADC_Start(&hadc);
-	while (1) {
-		if (HAL_ADC_PollForConversion(&hadc, 5) == HAL_OK) {
-			temp = HAL_ADC_GetValue(&hadc);
-		} else {
-			HT_LED_ON();
-		}
+	while(1){
+		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_4);
+		HAL_Delay(500);
 	}
-
 }
 
 void SystemClock_Config(void) {
@@ -72,6 +76,13 @@ void SystemClock_Config(void) {
 	HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
+static void MX_DMA_Init(void) {
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
+}
+
 static void MX_ADC_Init(void) {
 
 	ADC_ChannelConfTypeDef sConfig;
@@ -80,16 +91,17 @@ static void MX_ADC_Init(void) {
 	hadc.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
 	hadc.Init.Resolution = ADC_RESOLUTION_12B;
 	hadc.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-	hadc.Init.ScanConvMode = DISABLE;
-	hadc.Init.EOCSelection = DISABLE;
+	hadc.Init.ScanConvMode = ENABLE;
+	hadc.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
 	hadc.Init.LowPowerAutoWait = DISABLE;
 	hadc.Init.LowPowerAutoPowerOff = DISABLE;
 	hadc.Init.ContinuousConvMode = ENABLE;
 	hadc.Init.DiscontinuousConvMode = DISABLE;
 	hadc.Init.ExternalTrigConv = ADC_EXTERNALTRIGCONV_T1_CC4;
 	hadc.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
-	hadc.Init.DMAContinuousRequests = DISABLE;
+	hadc.Init.DMAContinuousRequests = ENABLE;
 	hadc.Init.Overrun = ADC_OVR_DATA_PRESERVED;
+	hadc.DMA_Handle = &hdma_adc;
 
 	HAL_ADC_Init(&hadc);
 
@@ -98,25 +110,25 @@ static void MX_ADC_Init(void) {
 	sConfig.Channel = ADC_TEMP_OUT_CHANNEL;
 	sConfig.Rank = 1;
 	HAL_ADC_ConfigChannel(&hadc, &sConfig);
-	sConfig.Channel = ADC_CUR_OUT_CHANNEL;
-	sConfig.Rank = 2;
-	HAL_ADC_ConfigChannel(&hadc, &sConfig);
-
-	sConfig.Channel = ADC_V1_OUT_CHANNEL;
-	sConfig.Rank = 3;
-	HAL_ADC_ConfigChannel(&hadc, &sConfig);
-
-	sConfig.Channel = ADC_V2_OUT_CHANNEL;
-	sConfig.Rank = 4;
-	HAL_ADC_ConfigChannel(&hadc, &sConfig);
-
-	sConfig.Channel = ADC_V3_OUT_CHANNEL;
-	sConfig.Rank = 5;
-	HAL_ADC_ConfigChannel(&hadc, &sConfig);
-
-	sConfig.Channel = ADC_V4_OUT_CHANNEL;
-	sConfig.Rank = 6;
-	HAL_ADC_ConfigChannel(&hadc, &sConfig);
+//	sConfig.Channel = ADC_CUR_OUT_CHANNEL;
+//	sConfig.Rank = 2;
+//	HAL_ADC_ConfigChannel(&hadc, &sConfig);
+//
+//	sConfig.Channel = ADC_V1_OUT_CHANNEL;
+//	sConfig.Rank = 3;
+//	HAL_ADC_ConfigChannel(&hadc, &sConfig);
+//
+//	sConfig.Channel = ADC_V2_OUT_CHANNEL;
+//	sConfig.Rank = 4;
+//	HAL_ADC_ConfigChannel(&hadc, &sConfig);
+//
+//	sConfig.Channel = ADC_V3_OUT_CHANNEL;
+//	sConfig.Rank = 5;
+//	HAL_ADC_ConfigChannel(&hadc, &sConfig);
+//
+//	sConfig.Channel = ADC_V4_OUT_CHANNEL;
+//	sConfig.Rank = 6;
+//	HAL_ADC_ConfigChannel(&hadc, &sConfig);
 
 }
 
