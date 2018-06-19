@@ -1,6 +1,13 @@
 #include "main.h"
 #include "stm32f0xx_hal.h"
 
+#define ADC_V1_OUT_CHANNEL ADC_CHANNEL_2
+#define ADC_V2_OUT_CHANNEL ADC_CHANNEL_1
+#define ADC_V3_OUT_CHANNEL ADC_CHANNEL_4
+#define ADC_V4_OUT_CHANNEL ADC_CHANNEL_3
+#define ADC_TEMP_OUT_CHANNEL ADC_CHANNEL_6
+#define ADC_CUR_OUT_CHANNEL ADC_CHANNEL_7
+
 #define HT_LED_ON()     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_SET)
 #define OC_LED_ON() 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET)
 #define RELAY_PIN_ON()  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET)
@@ -12,7 +19,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_ADC_Init(void);
 
-uint32_t temp = 0;
+uint16_t temp = 0;
 
 int main(void) {
 	HAL_Init();
@@ -31,7 +38,6 @@ int main(void) {
 	}
 
 }
-
 
 void SystemClock_Config(void) {
 
@@ -84,51 +90,33 @@ static void MX_ADC_Init(void) {
 	hadc.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
 	hadc.Init.DMAContinuousRequests = DISABLE;
 	hadc.Init.Overrun = ADC_OVR_DATA_PRESERVED;
-	if (HAL_ADC_Init(&hadc) != HAL_OK) {
-		_Error_Handler(__FILE__, __LINE__);
-	}
 
-	sConfig.Channel = ADC_CHANNEL_1;
-	sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
+	HAL_ADC_Init(&hadc);
+
 	sConfig.SamplingTime = ADC_SAMPLETIME_239CYCLES_5;
-//	if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK) {
-//		_Error_Handler(__FILE__, __LINE__);
-//	}
-//
-//	/**Configure for the selected ADC regular channel to be converted.
-//	 */
-//	sConfig.Channel = ADC_CHANNEL_2;
-//	if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK) {
-//		_Error_Handler(__FILE__, __LINE__);
-//	}
-//
-//	/**Configure for the selected ADC regular channel to be converted.
-//	 */
-//	sConfig.Channel = ADC_CHANNEL_3;
-//	if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK) {
-//		_Error_Handler(__FILE__, __LINE__);
-//	}
-//
-//	/**Configure for the selected ADC regular channel to be converted.
-//	 */
-//	sConfig.Channel = ADC_CHANNEL_4;
-//	if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK) {
-//		_Error_Handler(__FILE__, __LINE__);
-//	}
 
-	/**Configure for the selected ADC regular channel to be converted.
-	 */
-	sConfig.Channel = ADC_CHANNEL_6;
-	if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK) {
-		_Error_Handler(__FILE__, __LINE__);
-	}
+	sConfig.Channel = ADC_TEMP_OUT_CHANNEL;
+	sConfig.Rank = 1;
+	HAL_ADC_ConfigChannel(&hadc, &sConfig);
+	sConfig.Channel = ADC_CUR_OUT_CHANNEL;
+	sConfig.Rank = 2;
+	HAL_ADC_ConfigChannel(&hadc, &sConfig);
 
-	/**Configure for the selected ADC regular channel to be converted.
-	 */
-//	sConfig.Channel = ADC_CHANNEL_7;
-//	if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK) {
-//		_Error_Handler(__FILE__, __LINE__);
-//	}
+	sConfig.Channel = ADC_V1_OUT_CHANNEL;
+	sConfig.Rank = 3;
+	HAL_ADC_ConfigChannel(&hadc, &sConfig);
+
+	sConfig.Channel = ADC_V2_OUT_CHANNEL;
+	sConfig.Rank = 4;
+	HAL_ADC_ConfigChannel(&hadc, &sConfig);
+
+	sConfig.Channel = ADC_V3_OUT_CHANNEL;
+	sConfig.Rank = 5;
+	HAL_ADC_ConfigChannel(&hadc, &sConfig);
+
+	sConfig.Channel = ADC_V4_OUT_CHANNEL;
+	sConfig.Rank = 6;
+	HAL_ADC_ConfigChannel(&hadc, &sConfig);
 
 }
 
@@ -136,12 +124,15 @@ static void MX_GPIO_Init(void) {
 
 	GPIO_InitTypeDef GPIO_InitStruct;
 
-	__HAL_RCC_GPIOA_CLK_ENABLE();
-	__HAL_RCC_GPIOB_CLK_ENABLE();
+	__HAL_RCC_GPIOA_CLK_ENABLE()
+	;
+	__HAL_RCC_GPIOB_CLK_ENABLE()
+	;
 
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
 
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5,
+			GPIO_PIN_RESET);
 
 	GPIO_InitStruct.Pin = GPIO_PIN_5;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
