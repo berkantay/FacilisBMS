@@ -11,7 +11,7 @@
 #define TEMP_OFF 500
 
 #define VREF_3v3_CONST 1532
-#define VREF_ACTUAL (3300 * VREF_3v3_CONST) / 4095
+#define VREF_COEFFICIENT (3300 * VREF_3v3_CONST) / 4095
 
 #define HT_LED_ON()     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_SET)
 #define OC_LED_ON() 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET)
@@ -36,10 +36,10 @@ float temperature;
 uint32_t buffer[2];
 
 float temp_scale_multiplier;
-uint32_t vref_adc_value = 0;
+uint32_t vref_adc = 0;
 
 float calculateTemperature(uint32_t temp){
-	temp_scale_multiplier = (float)VREF_ACTUAL / vref_adc_value;
+	temp_scale_multiplier = (float)VREF_COEFFICIENT / vref_adc;
 	if(temp > 0){
 		return (((temp)*(temp_scale_multiplier))-(TEMP_OFF))/(10);
 	}
@@ -47,7 +47,7 @@ float calculateTemperature(uint32_t temp){
 }
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
-	vref_adc_value = buffer[VREF_INDEX];
+	vref_adc = buffer[VREF_INDEX];
 	temperature = calculateTemperature(buffer[TEMP_INDEX]);
 }
 

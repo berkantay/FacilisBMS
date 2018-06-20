@@ -3239,7 +3239,7 @@ LOAD c:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.15
  *(.bss)
  .bss           0x20000004       0x1c c:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtbegin.o
  .bss           0x20000020        0x4 Src/main.o
-                0x20000020                vref_adc_value
+                0x20000020                vref_adc
  *(.bss*)
  *(COMMON)
  COMMON         0x20000024        0x4 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
@@ -3475,7 +3475,7 @@ OUTPUT(BMSv2.elf elf32-littlearm)
  .debug_line    0x0000514c      0x77b Src/system_stm32f0xx.o
  .debug_line    0x000058c7       0x83 startup/startup_stm32f030x6.o
 
-.debug_str      0x00000000    0x3fa24
+.debug_str      0x00000000    0x3fa23
  .debug_str     0x00000000    0x3e56b Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
                               0x3e804 (size before relaxing)
  .debug_str     0x0003e56b      0x70f Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_adc.o
@@ -3488,13 +3488,13 @@ OUTPUT(BMSv2.elf elf32-littlearm)
                               0x3e5d9 (size before relaxing)
  .debug_str     0x0003f310      0x331 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc.o
                               0x3e73d (size before relaxing)
- .debug_str     0x0003f641      0x2fd Src/main.o
-                              0x3ed9f (size before relaxing)
- .debug_str     0x0003f93e       0x1b Src/stm32f0xx_hal_msp.o
+ .debug_str     0x0003f641      0x2fc Src/main.o
+                              0x3ed9e (size before relaxing)
+ .debug_str     0x0003f93d       0x1b Src/stm32f0xx_hal_msp.o
                               0x3e8b4 (size before relaxing)
- .debug_str     0x0003f959       0x71 Src/stm32f0xx_it.o
+ .debug_str     0x0003f958       0x71 Src/stm32f0xx_it.o
                               0x3e525 (size before relaxing)
- .debug_str     0x0003f9ca       0x5a Src/system_stm32f0xx.o
+ .debug_str     0x0003f9c9       0x5a Src/system_stm32f0xx.o
                               0x3e332 (size before relaxing)
 
 .comment        0x00000000       0x7f
