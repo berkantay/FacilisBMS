@@ -8,6 +8,9 @@
 #define ADC_TEMP_OUT_CHANNEL ADC_CHANNEL_6
 #define ADC_CUR_OUT_CHANNEL ADC_CHANNEL_7
 
+#define VREF 3300
+#define TEMP_OFF 500
+
 #define HT_LED_ON()     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_SET)
 #define OC_LED_ON() 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET)
 #define RELAY_PIN_ON()  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET)
@@ -21,11 +24,13 @@ static void MX_GPIO_Init(void);
 static void MX_ADC_Init(void);
 static void MX_DMA_Init(void);
 
-uint32_t temp[1];
+float temp[1];
 uint32_t buffer[1];
 
+const float temp_scale_multiplier = VREF/4095.0;
+
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
-	temp[0] = buffer[0];
+	temp[0] = (uint32_t)(((buffer[0])*(temp_scale_multiplier))-(TEMP_OFF))/(10);
 }
 
 int main(void) {
@@ -110,6 +115,7 @@ static void MX_ADC_Init(void) {
 	sConfig.Channel = ADC_TEMP_OUT_CHANNEL;
 	sConfig.Rank = 1;
 	HAL_ADC_ConfigChannel(&hadc, &sConfig);
+
 //	sConfig.Channel = ADC_CUR_OUT_CHANNEL;
 //	sConfig.Rank = 2;
 //	HAL_ADC_ConfigChannel(&hadc, &sConfig);
