@@ -14,9 +14,13 @@
 #define VREF_COEFFICIENT (3300 * VREF_3v3_CONST) / 4095
 
 #define HT_LED_ON()     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_SET)
+#define HT_LED_OFF()     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET)
 #define OC_LED_ON() 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET)
+#define OC_LED_OFF() 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET)
 #define RELAY_PIN_ON()  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET)
+#define RELAY_PIN_OFF()  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET)
 #define LV_LED_ON()  	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_SET)
+#define LV_LED_OFF()  	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_RESET)
 
 ADC_HandleTypeDef hadc;
 DMA_HandleTypeDef hdma_adc;
@@ -26,29 +30,66 @@ static void MX_GPIO_Init(void);
 static void MX_ADC_Init(void);
 static void MX_DMA_Init(void);
 
-enum buffer_index{
-	TEMP_INDEX,
-	VREF_INDEX,
+float calculateTemperature(uint32_t temp);
+void checkTemperature(uint32_t temp);
+
+float calculateCurrent(uint32_t current_adc);
+void checkCurrent(float current);
+
+enum buffer_index {
+	TEMP_INDEX, CUR_INDEX, VREF_INDEX,
 };
 
-float temperature;
-
-uint32_t buffer[2];
+__IO uint32_t buffer[3];
 
 float temp_scale_multiplier;
+
+float temperature = 0.0;
+float current = 0;
+
 uint32_t vref_adc = 0;
+uint32_t current_adc = 0;
 
-float calculateTemperature(uint32_t temp){
-	temp_scale_multiplier = (float)VREF_COEFFICIENT / vref_adc;
-	if(temp > 0){
-		return (((temp)*(temp_scale_multiplier))-(TEMP_OFF))/(10);
-	}
-	return 0;
-}
+int temp_flag = 0;
+int overcur_flag = 0;
 
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
 	vref_adc = buffer[VREF_INDEX];
 	temperature = calculateTemperature(buffer[TEMP_INDEX]);
+	checkTemperature(temperature);
+	current_adc = buffer[CUR_INDEX];
+	current = calculateCurrent(current_adc);
+	checkCurrent(current);
+
+}
+
+void ledAnimation(void) {
+	for (uint8_t i = 0; i < 3; i++) {
+		OC_LED_ON();
+		HAL_Delay(50);
+		HT_LED_ON();
+		HAL_Delay(50);
+		LV_LED_ON();
+		HAL_Delay(50);
+		LV_LED_OFF();
+		HAL_Delay(50);
+		HT_LED_OFF();
+		HAL_Delay(50);
+		OC_LED_OFF();
+		HAL_Delay(50);
+	}
+
+	for (uint8_t i = 0; i < 3; i++) {
+		OC_LED_ON();
+		HT_LED_ON();
+		LV_LED_ON();
+		HAL_Delay(100);
+		LV_LED_OFF();
+		HT_LED_OFF();
+		OC_LED_OFF();
+		HAL_Delay(100);
+	}
+
 }
 
 int main(void) {
@@ -58,11 +99,45 @@ int main(void) {
 	MX_GPIO_Init();
 	MX_DMA_Init();
 	MX_ADC_Init();
-	HAL_ADC_Start_DMA(&hadc, buffer, 2);
-	while(1){
-		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_4);
-		HAL_Delay(500);
+	HAL_ADC_Start_DMA(&hadc, buffer, 3);
+
+	ledAnimation();
+	RELAY_PIN_ON();
+	while (1) {
+		if (overcur_flag) {
+			RELAY_PIN_OFF();
+			OC_LED_ON();
+		}
+
+		if (temp_flag) {
+			RELAY_PIN_OFF();
+			HT_LED_ON();
+		}
 	}
+}
+
+float calculateTemperature(uint32_t temp) {
+	temp_scale_multiplier = (float) VREF_COEFFICIENT / vref_adc;
+	if (temp > 0) {
+		return (((temp) * (temp_scale_multiplier)) - (TEMP_OFF)) / (10);
+	}
+	return 0;
+}
+
+void checkTemperature(uint32_t temp) {
+	if (temp > 30) {
+		temp_flag = 1;
+	}
+}
+
+void checkCurrent(float current) {
+	if (current > 1.7) {
+		overcur_flag = 1;
+	}
+}
+
+float calculateCurrent(uint32_t current_adc) {
+	return ((current_adc * (temp_scale_multiplier)) - 1635) / 110;
 }
 
 void SystemClock_Config(void) {
@@ -99,10 +174,11 @@ void SystemClock_Config(void) {
 }
 
 static void MX_DMA_Init(void) {
-  __HAL_RCC_DMA1_CLK_ENABLE();
+	__HAL_RCC_DMA1_CLK_ENABLE()
+	;
 
-  HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
+	HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
+	HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
 }
 
 static void MX_ADC_Init(void) {
@@ -125,7 +201,6 @@ static void MX_ADC_Init(void) {
 	hadc.Init.Overrun = ADC_OVR_DATA_PRESERVED;
 	hadc.DMA_Handle = &hdma_adc;
 
-
 	HAL_ADC_Init(&hadc);
 
 	sConfig.SamplingTime = ADC_SAMPLETIME_239CYCLES_5;
@@ -138,9 +213,9 @@ static void MX_ADC_Init(void) {
 	sConfig.Rank = 1;
 	HAL_ADC_ConfigChannel(&hadc, &sConfig);
 
-//	sConfig.Channel = ADC_CUR_OUT_CHANNEL;
-//	sConfig.Rank = 2;
-//	HAL_ADC_ConfigChannel(&hadc, &sConfig);
+	sConfig.Channel = ADC_CUR_OUT_CHANNEL;
+	sConfig.Rank = 3;
+	HAL_ADC_ConfigChannel(&hadc, &sConfig);
 //
 //	sConfig.Channel = ADC_V1_OUT_CHANNEL;
 //	sConfig.Rank = 3;
@@ -157,7 +232,6 @@ static void MX_ADC_Init(void) {
 //	sConfig.Channel = ADC_V4_OUT_CHANNEL;
 //	sConfig.Rank = 6;
 //	HAL_ADC_ConfigChannel(&hadc, &sConfig);
-
 
 }
 
