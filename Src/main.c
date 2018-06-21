@@ -1,5 +1,7 @@
 #include "main.h"
 #include "stm32f0xx_hal.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 #define ADC_V1_OUT_CHANNEL ADC_CHANNEL_2
 #define ADC_V2_OUT_CHANNEL ADC_CHANNEL_1
@@ -36,35 +38,47 @@ void checkTemperature(uint32_t temp);
 float calculateCurrent(uint32_t current_adc);
 void checkCurrent(float current);
 
+typedef struct Values {
+	float temperature;
+	float current;
+	float v1;
+	float v2;
+	float v3;
+	float v4;
+} Values;
+
 enum buffer_index {
-	TEMP_INDEX, CUR_INDEX, VREF_INDEX,
+	 V1, V2, V3, V4,TEMP_INDEX, CUR_INDEX,  VREF_INDEX,
 };
 
-__IO uint32_t buffer[3];
+uint32_t buffer[7];
 
 float temp_scale_multiplier;
 
-float temperature = 0.0;
-float current = 0;
+uint32_t vref = 0;
 
-uint32_t vref_adc = 0;
-uint32_t current_adc = 0;
+__IO Values ADCValues;
+__IO Values ExactValues;
 
 int temp_flag = 0;
 int overcur_flag = 0;
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
-	vref_adc = buffer[VREF_INDEX];
-	temperature = calculateTemperature(buffer[TEMP_INDEX]);
-	checkTemperature(temperature);
-	current_adc = buffer[CUR_INDEX];
-	current = calculateCurrent(current_adc);
-	checkCurrent(current);
+
+	if (__HAL_ADC_GET_FLAG(hadc, ADC_FLAG_EOS)) {
+		vref = buffer[VREF_INDEX];
+		ExactValues.temperature = calculateTemperature(buffer[TEMP_INDEX]);
+		checkTemperature(ExactValues.temperature);
+		ADCValues.current = buffer[CUR_INDEX];
+		ExactValues.current = calculateCurrent(ADCValues.current);
+		checkCurrent(ExactValues.current);
+
+	}
 
 }
 
 void ledAnimation(void) {
-	for (uint8_t i = 0; i < 3; i++) {
+	for (int i = 0; i < 3; i++) {
 		OC_LED_ON();
 		HAL_Delay(50);
 		HT_LED_ON();
@@ -79,7 +93,7 @@ void ledAnimation(void) {
 		HAL_Delay(50);
 	}
 
-	for (uint8_t i = 0; i < 3; i++) {
+	for (int i = 0; i < 3; i++) {
 		OC_LED_ON();
 		HT_LED_ON();
 		LV_LED_ON();
@@ -99,10 +113,12 @@ int main(void) {
 	MX_GPIO_Init();
 	MX_DMA_Init();
 	MX_ADC_Init();
-	HAL_ADC_Start_DMA(&hadc, buffer, 3);
 
+	HAL_ADC_Start_DMA(&hadc, buffer, 7);
 	ledAnimation();
+
 	RELAY_PIN_ON();
+
 	while (1) {
 		if (overcur_flag) {
 			RELAY_PIN_OFF();
@@ -117,7 +133,7 @@ int main(void) {
 }
 
 float calculateTemperature(uint32_t temp) {
-	temp_scale_multiplier = (float) VREF_COEFFICIENT / vref_adc;
+	temp_scale_multiplier = (float) VREF_COEFFICIENT / vref;
 	if (temp > 0) {
 		return (((temp) * (temp_scale_multiplier)) - (TEMP_OFF)) / (10);
 	}
@@ -205,33 +221,34 @@ static void MX_ADC_Init(void) {
 
 	sConfig.SamplingTime = ADC_SAMPLETIME_239CYCLES_5;
 
-	sConfig.Channel = ADC_TEMP_OUT_CHANNEL;
-	sConfig.Rank = 2;
-	HAL_ADC_ConfigChannel(&hadc, &sConfig);
 
 	sConfig.Channel = ADC_CHANNEL_VREFINT;
 	sConfig.Rank = 1;
 	HAL_ADC_ConfigChannel(&hadc, &sConfig);
 
+	sConfig.Channel = ADC_TEMP_OUT_CHANNEL;
+	sConfig.Rank = 2;
+	HAL_ADC_ConfigChannel(&hadc, &sConfig);
+
 	sConfig.Channel = ADC_CUR_OUT_CHANNEL;
 	sConfig.Rank = 3;
 	HAL_ADC_ConfigChannel(&hadc, &sConfig);
-//
-//	sConfig.Channel = ADC_V1_OUT_CHANNEL;
-//	sConfig.Rank = 3;
-//	HAL_ADC_ConfigChannel(&hadc, &sConfig);
-//
-//	sConfig.Channel = ADC_V2_OUT_CHANNEL;
-//	sConfig.Rank = 4;
-//	HAL_ADC_ConfigChannel(&hadc, &sConfig);
-//
-//	sConfig.Channel = ADC_V3_OUT_CHANNEL;
-//	sConfig.Rank = 5;
-//	HAL_ADC_ConfigChannel(&hadc, &sConfig);
-//
-//	sConfig.Channel = ADC_V4_OUT_CHANNEL;
-//	sConfig.Rank = 6;
-//	HAL_ADC_ConfigChannel(&hadc, &sConfig);
+
+	sConfig.Channel = ADC_V1_OUT_CHANNEL;
+	sConfig.Rank = 4;
+	HAL_ADC_ConfigChannel(&hadc, &sConfig);
+
+	sConfig.Channel = ADC_V2_OUT_CHANNEL;
+	sConfig.Rank = 5;
+	HAL_ADC_ConfigChannel(&hadc, &sConfig);
+
+	sConfig.Channel = ADC_V3_OUT_CHANNEL;
+	sConfig.Rank = 6;
+	HAL_ADC_ConfigChannel(&hadc, &sConfig);
+
+	sConfig.Channel = ADC_V4_OUT_CHANNEL;
+	sConfig.Rank = 7;
+	HAL_ADC_ConfigChannel(&hadc, &sConfig);
 
 }
 
