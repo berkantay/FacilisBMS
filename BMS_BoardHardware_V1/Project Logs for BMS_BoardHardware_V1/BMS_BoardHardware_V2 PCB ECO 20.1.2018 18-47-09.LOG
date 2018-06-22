@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=I_SENSOR Pin=U1-11
+Removed Pin From Net: NetName=RELAY Pin=U1-13
+Added Pin To Net: NetName=RELAY Pin=U1-11
+Added Pin To Net: NetName=I_SENSOR Pin=U1-13
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component D1 SURA8240T3G
+Added Room: Name=BMS_BoardHardware_V1

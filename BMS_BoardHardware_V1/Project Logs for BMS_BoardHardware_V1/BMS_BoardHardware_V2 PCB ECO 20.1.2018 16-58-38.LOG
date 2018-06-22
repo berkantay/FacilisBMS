@@ -1,0 +1,9 @@
+Change Component Designator: OldDesignator=D1 NewDesignator=D2
+Added Component: Designator=D1(ONSC-SMA-2-403D-02_V)
+Added Pin To Net: NetName=GND Pin=D1-1
+Added Pin To Net: NetName=VMAIN_IN Pin=D1-2
+Change Net Name : Old Net Name=NetD1_2 New Net Name=NetD2_2
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component C9 330 µF
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component C10 330 µF
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component D2 SURA8240T3G
+Added Room: Name=BMS_BoardHardware_V1

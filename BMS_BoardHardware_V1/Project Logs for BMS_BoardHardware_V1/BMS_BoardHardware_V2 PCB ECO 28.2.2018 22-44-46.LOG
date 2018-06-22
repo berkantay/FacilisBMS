@@ -1,0 +1,19 @@
+Removed Pin From Net: NetName=LV Pin=LED3-1
+Removed Pin From Net: NetName=HIGHTEMP Pin=LED4-1
+Removed Member From Class: ClassName=BMS_BoardHardware_V1 Member=LED3
+Removed Member From Class: ClassName=BMS_BoardHardware_V1 Member=LED4
+Change Component Footprint: Designator=P? Old Footprint=TECO-640445-4_V New Footprint=TECO-640445-4_V
+Change Component Description : Designator=C9 Old Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8 New Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8
+Change Component Description : Designator=C10 Old Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8 New Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8
+Added Component: Designator=LED?(LED_0603_Yellow)
+Added Component: Designator=LED?(LED_0603_Blue)
+Added Pin To Net: NetName=HIGHTEMP Pin=LED?-1
+Added Pin To Net: NetName=LV Pin=LED?-1
+Added Pin To Net: NetName=NetLED?_2 Pin=LED?-2
+Added Pin To Net: NetName=NetLED?_2 Pin=R13-1
+Added Net: Name=NetLED?_2
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component LED? 150060YS75000
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component LED? 150060BS75000
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component P? 1-770969-0
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component P? 1-770969-0
+Added Room: Name=BMS_BoardHardware_V1

@@ -1,0 +1,35 @@
+Removed Pin From Net: NetName=CR1 Pin=U3-2
+Removed Pin From Net: NetName=CR2 Pin=U3-3
+Removed Pin From Net: NetName=NRST Pin=U3-4
+Removed Pin From Net: NetName=V1_OUT Pin=U3-7
+Removed Pin From Net: NetName=V2_OUT Pin=U3-8
+Removed Pin From Net: NetName=V3_OUT Pin=U3-9
+Removed Pin From Net: NetName=V4_OUT Pin=U3-10
+Removed Pin From Net: NetName=I_SENSOR Pin=U3-11
+Removed Pin From Net: NetName=TEMP Pin=U3-12
+Removed Pin From Net: NetName=RELAY Pin=U3-13
+Removed Pin From Net: NetName=SWO Pin=U3-14
+Removed Pin From Net: NetName=OC Pin=U3-15
+Removed Pin From Net: NetName=SWDIO Pin=U3-23
+Removed Pin From Net: NetName=SWCLK Pin=U3-24
+Removed Pin From Net: NetName=LV Pin=U3-26
+Removed Pin From Net: NetName=HIGHTEMP Pin=U3-27
+Removed Pin From Net: NetName=BOOT Pin=U3-31
+Change Component Description : Designator=C14 Old Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8 New Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8
+Change Component Description : Designator=C15 Old Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8 New Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8
+Added Pin To Net: NetName=CR2 Pin=U3-2
+Added Pin To Net: NetName=V1_OUT Pin=U3-6
+Added Pin To Net: NetName=V2_OUT Pin=U3-7
+Added Pin To Net: NetName=V3_OUT Pin=U3-8
+Added Pin To Net: NetName=V4_OUT Pin=U3-9
+Added Pin To Net: NetName=I_SENSOR Pin=U3-10
+Added Pin To Net: NetName=TEMP Pin=U3-11
+Added Pin To Net: NetName=RELAY Pin=U3-12
+Added Pin To Net: NetName=OC Pin=U3-14
+Added Pin To Net: NetName=LV Pin=U3-15
+Added Pin To Net: NetName=SWDIO Pin=U3-22
+Added Pin To Net: NetName=SWCLK Pin=U3-23
+Added Pin To Net: NetName=HIGHTEMP Pin=U3-26
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component J1 
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component J2 
+Added Room: Name=BMS_BoardHardware_V1

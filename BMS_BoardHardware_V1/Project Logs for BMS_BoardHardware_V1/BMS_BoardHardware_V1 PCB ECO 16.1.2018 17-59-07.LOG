@@ -1,0 +1,12 @@
+Removed Pin From Net: NetName=VLÝPO Pin=D1-1
+Change Component DesignItemId : Designator=D1 Old DesignItemId=1N4001 New DesignItemId=SURA8240T3G
+Change Component Footprint: Designator=D1 Old Footprint=ONSC-AXIAL_LEAD-2-59-10_P New Footprint=ONSC-SMA-2-403D-02_V
+Change Component Comment : Designator=D1 Old Comment=1N4001 New Comment=SURA8240T3G
+Added Pin To Net: NetName=VLÝPO Pin=D1-2
+Added Pin To Net: NetName=NetD1_1 Pin=D1-1
+Added Pin To Net: NetName=NetD1_1 Pin=K1-1
+Added Pin To Net: NetName=NetD1_1 Pin=Z1-2
+Added Net: Name=NetD1_1
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component J1 
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component J2 
+Added Room: Name=BMS_BoardHardware_V1

@@ -1,0 +1,45 @@
+Removed Pin From Net: NetName=GND Pin=JTAG-1
+Removed Pin From Net: NetName=SWDIO Pin=JTAG-2
+Removed Pin From Net: NetName=3.3V Pin=JTAG-3
+Removed Pin From Net: NetName=SWCLK Pin=JTAG-4
+Removed Pin From Net: NetName=SWO Pin=JTAG-5
+Removed Pin From Net: NetName=NRST Pin=JTAG-6
+Removed Pin From Net: NetName=GND Pin=LIPO CELLS-1
+Removed Pin From Net: NetName=V1 Pin=LIPO CELLS-2
+Removed Pin From Net: NetName=V2 Pin=LIPO CELLS-3
+Removed Pin From Net: NetName=V3 Pin=LIPO CELLS-4
+Removed Pin From Net: NetName=V4 Pin=LIPO CELLS-5
+Removed Member From Class: ClassName=BMS_BoardHardware_V1 Member=JTAG
+Removed Member From Class: ClassName=BMS_BoardHardware_V1 Member=LIPO CELLS
+Change Component Comment : Designator=TEMP Old Comment=WE-3.00 mm Micro Power Connector 66200311122 New Comment=
+Change Component Designator: OldDesignator=+ LIPO + NewDesignator=J1
+Change Component Designator: OldDesignator=- LIPO - NewDesignator=J2
+Change Component Designator: OldDesignator=FUSE NewDesignator=fuse1
+Change Component Designator: OldDesignator=HT NewDesignator=LED4
+Change Component Designator: OldDesignator=LIPO_OUT+ NewDesignator=J3
+Change Component Designator: OldDesignator=LIPO_OUT - NewDesignator=J4
+Change Component Designator: OldDesignator=LV NewDesignator=LED3
+Change Component Designator: OldDesignator=MCU NewDesignator=U1
+Change Component Designator: OldDesignator=OC NewDesignator=LED2
+Change Component Designator: OldDesignator=POWER NewDesignator=LED1
+Change Component Designator: OldDesignator=RELAY NewDesignator=K1
+Change Component Designator: OldDesignator=SW NewDesignator=SW1
+Change Component Designator: OldDesignator=TEMP NewDesignator=C6
+Change Component Designator: OldDesignator=XTAL NewDesignator=X1
+Change Component Description : Designator=C9 Old Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8 New Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8
+Change Component Description : Designator=C10 Old Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8 New Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8
+Added Component: Designator=P?(TECO-1-770969-0_V)
+Added Component: Designator=P?(TECO-1-770969-0_V)
+Added Pin To Net: NetName=SWCLK Pin=P?-1
+Added Pin To Net: NetName=V3 Pin=P?-1
+Added Pin To Net: NetName=SWO Pin=P?-2
+Added Pin To Net: NetName=V4 Pin=P?-2
+Added Pin To Net: NetName=NRST Pin=P?-3
+Added Pin To Net: NetName=3.3V Pin=P?-4
+Added Pin To Net: NetName=V2 Pin=P?-4
+Added Pin To Net: NetName=SWDIO Pin=P?-5
+Added Pin To Net: NetName=V1 Pin=P?-5
+Added Pin To Net: NetName=GND Pin=P?-6
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component P? 1-770969-0
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component P? 1-770969-0
+Added Room: Name=BMS_BoardHardware_V1

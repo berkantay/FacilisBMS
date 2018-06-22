@@ -1,0 +1,12 @@
+Removed Pin From Net: NetName=3.3V Pin=C6-1
+Removed Pin From Net: NetName=TEMP Pin=C6-2
+Removed Pin From Net: NetName=GND Pin=C6-3
+Removed Member From Class: ClassName=BMS_BoardHardware_V1 Member=C6
+Added Component: Designator=P?(TECO-640445-4_V)
+Added Pin To Net: NetName=3.3V Pin=P?-1
+Added Pin To Net: NetName=TEMP Pin=P?-2
+Added Pin To Net: NetName=GND Pin=P?-3
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component P? 1-770969-0
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component P? 1-770969-0
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component X1 16MC
+Added Room: Name=BMS_BoardHardware_V1

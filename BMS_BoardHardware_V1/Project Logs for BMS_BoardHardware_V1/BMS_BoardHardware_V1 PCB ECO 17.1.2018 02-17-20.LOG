@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=OC Pin=U1-15
+Added Pin To Net: NetName=OC Pin=U1-28
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component J1 
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component J2 
+Added Room: Name=BMS_BoardHardware_V1

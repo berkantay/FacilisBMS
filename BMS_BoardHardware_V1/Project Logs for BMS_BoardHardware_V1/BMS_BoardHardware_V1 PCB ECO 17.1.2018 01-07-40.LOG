@@ -1,0 +1,34 @@
+Removed Pin From Net: NetName=CR2 Pin=U3-2
+Removed Pin From Net: NetName=V1_OUT Pin=U3-6
+Removed Pin From Net: NetName=V2_OUT Pin=U3-7
+Removed Pin From Net: NetName=V3_OUT Pin=U3-8
+Removed Pin From Net: NetName=V4_OUT Pin=U3-9
+Removed Pin From Net: NetName=I_SENSOR Pin=U3-10
+Removed Pin From Net: NetName=TEMP Pin=U3-11
+Removed Pin From Net: NetName=RELAY Pin=U3-12
+Removed Pin From Net: NetName=OC Pin=U3-14
+Removed Pin From Net: NetName=LV Pin=U3-15
+Removed Pin From Net: NetName=SWDIO Pin=U3-22
+Removed Pin From Net: NetName=SWCLK Pin=U3-23
+Removed Pin From Net: NetName=HIGHTEMP Pin=U3-26
+Removed Member From Class: ClassName=BMS_BoardHardware_V1 Member=U3
+Added Pin To Net: NetName=CR1 Pin=U1-2
+Added Pin To Net: NetName=CR2 Pin=U1-3
+Added Pin To Net: NetName=NRST Pin=U1-4
+Added Pin To Net: NetName=V1_OUT Pin=U1-7
+Added Pin To Net: NetName=V2_OUT Pin=U1-8
+Added Pin To Net: NetName=V3_OUT Pin=U1-9
+Added Pin To Net: NetName=V4_OUT Pin=U1-10
+Added Pin To Net: NetName=I_SENSOR Pin=U1-11
+Added Pin To Net: NetName=TEMP Pin=U1-12
+Added Pin To Net: NetName=RELAY Pin=U1-13
+Added Pin To Net: NetName=SWO Pin=U1-14
+Added Pin To Net: NetName=OC Pin=U1-15
+Added Pin To Net: NetName=SWDIO Pin=U1-23
+Added Pin To Net: NetName=SWCLK Pin=U1-24
+Added Pin To Net: NetName=LV Pin=U1-26
+Added Pin To Net: NetName=HIGHTEMP Pin=U1-27
+Added Pin To Net: NetName=BOOT Pin=U1-31
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component J1 
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component J2 
+Added Room: Name=BMS_BoardHardware_V1

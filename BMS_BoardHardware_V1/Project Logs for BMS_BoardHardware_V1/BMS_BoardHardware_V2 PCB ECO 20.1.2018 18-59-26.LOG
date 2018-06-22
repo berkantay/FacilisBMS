@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=V1_OUT Pin=U1-7
+Removed Pin From Net: NetName=V2_OUT Pin=U1-8
+Removed Pin From Net: NetName=V3_OUT Pin=U1-9
+Removed Pin From Net: NetName=V4_OUT Pin=U1-10
+Added Pin To Net: NetName=V2_OUT Pin=U1-7
+Added Pin To Net: NetName=V1_OUT Pin=U1-8
+Added Pin To Net: NetName=V4_OUT Pin=U1-9
+Added Pin To Net: NetName=V3_OUT Pin=U1-10
+Added Room: Name=BMS_BoardHardware_V1

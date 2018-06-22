@@ -1,0 +1,46 @@
+Removed Pin From Net: NetName=SWCLK Pin=JTAG-1
+Removed Pin From Net: NetName=SWO Pin=JTAG-2
+Removed Pin From Net: NetName=NRST Pin=JTAG-3
+Removed Pin From Net: NetName=3.3V Pin=JTAG-4
+Removed Pin From Net: NetName=SWDIO Pin=JTAG-5
+Removed Pin From Net: NetName=GND Pin=JTAG-6
+Removed Pin From Net: NetName=V3 Pin=LC-1
+Removed Pin From Net: NetName=V4 Pin=LC-2
+Removed Pin From Net: NetName=V2 Pin=LC-4
+Removed Pin From Net: NetName=V1 Pin=LC-5
+Removed Pin From Net: NetName=3.3V Pin=TMP-1
+Removed Pin From Net: NetName=TEMP Pin=TMP-2
+Removed Pin From Net: NetName=GND Pin=TMP-3
+Removed Member From Class: ClassName=BMS_BoardHardware_V1 Member=JTAG
+Removed Member From Class: ClassName=BMS_BoardHardware_V1 Member=LC
+Change Component Designator: OldDesignator=3.3 NewDesignator=LED1
+Change Component Designator: OldDesignator=HT NewDesignator=LED4
+Change Component Designator: OldDesignator=LIPO IN + NewDesignator=J1
+Change Component Designator: OldDesignator=LIPO IN - NewDesignator=J2
+Change Component Designator: OldDesignator=LIPO OUT + NewDesignator=J3
+Change Component Designator: OldDesignator=LIPO OUT - NewDesignator=J4
+Change Component Designator: OldDesignator=LV NewDesignator=LED3
+Change Component Designator: OldDesignator=OC NewDesignator=LED2
+Change Component Description : Designator=C9 Old Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8 New Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8
+Change Component Description : Designator=C10 Old Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8 New Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8
+Added Component: Designator=C6(66200311122)
+Added Component: Designator=C7(66200621022)
+Added Component: Designator=C15(66200621022)
+Added Pin To Net: NetName=3.3V Pin=C6-1
+Added Pin To Net: NetName=TEMP Pin=C6-2
+Added Pin To Net: NetName=GND Pin=C6-3
+Added Pin To Net: NetName=SWCLK Pin=C7-1
+Added Pin To Net: NetName=SWO Pin=C7-2
+Added Pin To Net: NetName=NRST Pin=C7-3
+Added Pin To Net: NetName=3.3V Pin=C7-4
+Added Pin To Net: NetName=SWDIO Pin=C7-5
+Added Pin To Net: NetName=GND Pin=C7-6
+Added Pin To Net: NetName=V3 Pin=C15-1
+Added Pin To Net: NetName=V4 Pin=C15-2
+Added Pin To Net: NetName=V1 Pin=C15-3
+Added Pin To Net: NetName=V2 Pin=C15-4
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component C6 
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component C7 
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component C15 
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component X1 16MC
+Added Room: Name=BMS_BoardHardware_V1

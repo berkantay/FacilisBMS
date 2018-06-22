@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=SWCLK Pin=C7-1
+Removed Pin From Net: NetName=SWO Pin=C7-2
+Removed Pin From Net: NetName=NRST Pin=C7-3
+Added Pin To Net: NetName=SWO Pin=C7-1
+Added Pin To Net: NetName=NRST Pin=C7-2
+Added Pin To Net: NetName=SWCLK Pin=C7-3
+Added Room: Name=BMS_BoardHardware_V1

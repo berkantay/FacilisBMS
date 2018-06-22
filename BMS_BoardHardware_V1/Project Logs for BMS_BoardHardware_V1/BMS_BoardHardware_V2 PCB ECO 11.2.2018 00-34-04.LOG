@@ -1,0 +1,37 @@
+Change Component Comment : Designator=TEMP Old Comment=WE-3.00 mm Micro Power Connector 66200311122 New Comment=
+Change Component Designator: OldDesignator=+ LIPO + NewDesignator=J1
+Change Component Designator: OldDesignator=- LIPO - NewDesignator=J2
+Change Component Designator: OldDesignator=FUSE NewDesignator=fuse1
+Change Component Designator: OldDesignator=HT NewDesignator=LED4
+Change Component Designator: OldDesignator=JTAG NewDesignator=C7
+Change Component Designator: OldDesignator=LIPO_OUT+ NewDesignator=J3
+Change Component Designator: OldDesignator=LIPO_OUT - NewDesignator=J4
+Change Component Designator: OldDesignator=LIPO CELLS NewDesignator=C15
+Change Component Designator: OldDesignator=MCU NewDesignator=U1
+Change Component Designator: OldDesignator=OC NewDesignator=LED2
+Change Component Designator: OldDesignator=OC NewDesignator=LED3
+Change Component Designator: OldDesignator=POWER NewDesignator=LED1
+Change Component Designator: OldDesignator=RELAY NewDesignator=K1
+Change Component Designator: OldDesignator=SW NewDesignator=SW1
+Change Component Designator: OldDesignator=TEMP NewDesignator=C6
+Change Component Designator: OldDesignator=XTAL NewDesignator=X1
+Change Component Description : Designator=C9 Old Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8 New Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8
+Change Component Description : Designator=C10 Old Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8 New Description=WCAP-PSLP Aluminum Polymer Capacitors , 330 µF; + / - 20%; 6,3 V , 6,3 x 5,8
+Added Component: Designator=C20(66200221022)
+Added Component: Designator=C21(66200221022)
+Added Component: Designator=C22(66200221022)
+Added Component: Designator=C23(66200221022)
+Added Pin To Net: NetName=GND Pin=C20-1
+Added Pin To Net: NetName=3.3V Pin=C20-2
+Added Pin To Net: NetName=GND Pin=C21-1
+Added Pin To Net: NetName=OC Pin=C21-2
+Added Pin To Net: NetName=GND Pin=C22-1
+Added Pin To Net: NetName=LV Pin=C22-2
+Added Pin To Net: NetName=GND Pin=C23-1
+Added Pin To Net: NetName=HIGHTEMP Pin=C23-2
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component C20 
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component C21 
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component C22 
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component C23 
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component LED2 
+Added Room: Name=BMS_BoardHardware_V1

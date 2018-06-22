@@ -1,0 +1,11 @@
+Removed Pin From Net: NetName=VLÝPO Pin=D1-2
+Change Component Footprint: Designator=K1 Old Footprint=G2RL-1A-DC12 New Footprint=RELAY
+Added Pin To Net: NetName=VLÝPO Pin=D1-1
+Added Pin To Net: NetName=VLÝPO Pin=K1-6
+Added Pin To Net: NetName=VLÝPO Pin=K1-8
+Added Pin To Net: NetName=NetD1_2 Pin=D1-2
+Added Pin To Net: NetName=NetD1_2 Pin=K1-1
+Added Pin To Net: NetName=NetD1_2 Pin=Z1-2
+Added Net: Name=NetD1_2
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component J1 
+Added Member To Class: ClassName=BMS_BoardHardware_V1 Member=Component J2 

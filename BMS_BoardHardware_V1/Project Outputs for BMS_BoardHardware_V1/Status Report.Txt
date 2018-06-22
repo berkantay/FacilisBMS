@@ -1,0 +1,28 @@
+Output: Gerber Files
+Type  : Gerber
+From  : Variant [[No Variations]] of Project [BMS_BoardHardware_V1.PrjPcb]
+   Generated File[BMS_BoardHardware_V2.GTL]
+   Generated File[BMS_BoardHardware_V2.GP1]
+   Generated File[BMS_BoardHardware_V2.GP2]
+   Generated File[BMS_BoardHardware_V2.GBL]
+   Generated File[BMS_BoardHardware_V2.GPB]
+   Generated File[BMS_BoardHardware_V2.GPT]
+   Generated File[BMS_BoardHardware_V2.GTO]
+   Generated File[BMS_BoardHardware_V2.GTP]
+   Generated File[BMS_BoardHardware_V2.GTS]
+   Generated File[BMS_BoardHardware_V2.GBS]
+   Generated File[BMS_BoardHardware_V2.GBP]
+   Generated File[BMS_BoardHardware_V2.GBO]
+   Generated File[BMS_BoardHardware_V2.GKO]
+   Generated File[BMS_BoardHardware_V2.GM1]
+   Generated File[BMS_BoardHardware_V2.GM13]
+   Generated File[BMS_BoardHardware_V2.GM15]
+   Generated File[BMS_BoardHardware_V2.RUL]
+   Generated File[BMS_BoardHardware_V2.EXTREP]
+   Generated File[BMS_BoardHardware_V2.REP]
+
+
+Files Generated   : 19
+Documents Printed : 0
+
+Finished Output Generation At 21:40:40 On 8.5.2018
