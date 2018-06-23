@@ -32,11 +32,15 @@ static void MX_GPIO_Init(void);
 static void MX_ADC_Init(void);
 static void MX_DMA_Init(void);
 
+void ledAnimation(void);
+
 float calculateTemperature(uint32_t temp);
 void checkTemperature(uint32_t temp);
 
 float calculateCurrent(uint32_t current_adc);
 void checkCurrent(float current);
+
+float base_current;
 
 typedef struct Values {
 	float temperature;
@@ -53,7 +57,7 @@ enum buffer_index {
 
 uint32_t buffer[7];
 
-float temp_scale_multiplier;
+float scale_multiplier;
 
 uint32_t vref = 0;
 
@@ -66,17 +70,76 @@ int overcur_flag = 0;
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
 	if (__HAL_ADC_GET_FLAG(hadc, ADC_FLAG_EOS)) {
 		vref = buffer[VREF_INDEX];
-		ExactValues.temperature = calculateTemperature(buffer[TEMP_INDEX]);
-		checkTemperature(ExactValues.temperature);
+		scale_multiplier = (float) VREF_COEFFICIENT / vref;
+		ADCValues.temperature = buffer[TEMP_INDEX];
 		ADCValues.current = buffer[CUR_INDEX];
-		ExactValues.current = calculateCurrent(ADCValues.current);
-		checkCurrent(ExactValues.current);
 		ADCValues.v1 = buffer[V1];
 		ADCValues.v2 = buffer[V2];
 		ADCValues.v3 = buffer[V3];
 		ADCValues.v4 = buffer[V4];
 	}
 }
+
+int main(void) {
+	HAL_Init();
+
+	SystemClock_Config();
+
+	MX_GPIO_Init();
+	MX_DMA_Init();
+	MX_ADC_Init();
+
+
+	HAL_ADC_Start_DMA(&hadc, buffer, 7);
+
+	ledAnimation();
+
+	base_current = (buffer[CUR_INDEX])*(scale_multiplier);
+
+	RELAY_PIN_ON();
+
+	while (1) {
+
+		ExactValues.temperature = calculateTemperature(buffer[TEMP_INDEX]);
+		checkTemperature(ExactValues.temperature);
+		ExactValues.current = calculateCurrent(ADCValues.current);
+		checkCurrent(ExactValues.current);
+
+		if (overcur_flag) {
+			RELAY_PIN_OFF();
+			OC_LED_ON();
+		}
+
+		if (temp_flag) {
+			RELAY_PIN_OFF();
+			HT_LED_ON();
+		}
+	}
+}
+
+float calculateTemperature(uint32_t temp) {
+	if (temp > 0) {
+		return (((temp) * (scale_multiplier)) - (TEMP_OFF)) / (10);
+	}
+	return 0;
+}
+
+void checkTemperature(uint32_t temp) {
+	if (temp > 70) {
+		temp_flag = 1;
+	}
+}
+
+void checkCurrent(float current) {
+	if (current > 3) {
+		overcur_flag = 1;
+	}
+}
+
+float calculateCurrent(uint32_t current_adc) {
+	return ((current_adc * scale_multiplier) - (base_current)) / 66;
+}
+
 
 void ledAnimation(void) {
 	for (int i = 0; i < 3; i++) {
@@ -104,57 +167,6 @@ void ledAnimation(void) {
 		OC_LED_OFF();
 		HAL_Delay(100);
 	}
-
-}
-
-int main(void) {
-	HAL_Init();
-
-	SystemClock_Config();
-	MX_GPIO_Init();
-	MX_DMA_Init();
-	MX_ADC_Init();
-
-	HAL_ADC_Start_DMA(&hadc, buffer, 7);
-	ledAnimation();
-
-	RELAY_PIN_ON();
-
-	while (1) {
-		if (overcur_flag) {
-			RELAY_PIN_OFF();
-			OC_LED_ON();
-		}
-
-		if (temp_flag) {
-			RELAY_PIN_OFF();
-			HT_LED_ON();
-		}
-	}
-}
-
-float calculateTemperature(uint32_t temp) {
-	temp_scale_multiplier = (float) VREF_COEFFICIENT / vref;
-	if (temp > 0) {
-		return (((temp) * (temp_scale_multiplier)) - (TEMP_OFF)) / (10);
-	}
-	return 0;
-}
-
-void checkTemperature(uint32_t temp) {
-	if (temp > 30) {
-		temp_flag = 1;
-	}
-}
-
-void checkCurrent(float current) {
-	if (current > 1.7) {
-		overcur_flag = 1;
-	}
-}
-
-float calculateCurrent(uint32_t current_adc) {
-	return ((current_adc * (temp_scale_multiplier)) - 1635) / 110;
 }
 
 void SystemClock_Config(void) {
@@ -256,15 +268,12 @@ static void MX_GPIO_Init(void) {
 
 	GPIO_InitTypeDef GPIO_InitStruct;
 
-	__HAL_RCC_GPIOA_CLK_ENABLE()
-	;
-	__HAL_RCC_GPIOB_CLK_ENABLE()
-	;
+	__HAL_RCC_GPIOA_CLK_ENABLE();
+	__HAL_RCC_GPIOB_CLK_ENABLE();
 
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
 
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5,
-			GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5, GPIO_PIN_RESET);
 
 	GPIO_InitStruct.Pin = GPIO_PIN_5;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
