@@ -48,7 +48,7 @@ typedef struct Values {
 } Values;
 
 enum buffer_index {
-	 V1, V2, V3, V4,TEMP_INDEX, CUR_INDEX,  VREF_INDEX,
+	V3, V4, V1, V2, TEMP_INDEX, CUR_INDEX, VREF_INDEX,
 };
 
 uint32_t buffer[7];
@@ -64,7 +64,6 @@ int temp_flag = 0;
 int overcur_flag = 0;
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
-
 	if (__HAL_ADC_GET_FLAG(hadc, ADC_FLAG_EOS)) {
 		vref = buffer[VREF_INDEX];
 		ExactValues.temperature = calculateTemperature(buffer[TEMP_INDEX]);
@@ -72,9 +71,11 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
 		ADCValues.current = buffer[CUR_INDEX];
 		ExactValues.current = calculateCurrent(ADCValues.current);
 		checkCurrent(ExactValues.current);
-
+		ADCValues.v1 = buffer[V1];
+		ADCValues.v2 = buffer[V2];
+		ADCValues.v3 = buffer[V3];
+		ADCValues.v4 = buffer[V4];
 	}
-
 }
 
 void ledAnimation(void) {
@@ -220,7 +221,6 @@ static void MX_ADC_Init(void) {
 	HAL_ADC_Init(&hadc);
 
 	sConfig.SamplingTime = ADC_SAMPLETIME_239CYCLES_5;
-
 
 	sConfig.Channel = ADC_CHANNEL_VREFINT;
 	sConfig.Rank = 1;
