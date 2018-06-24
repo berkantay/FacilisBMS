@@ -1,5 +1,5 @@
-Src/main.o: ../Src/main.c \
- C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Inc/main.h \
+Src/adc.o: ../Src/adc.c \
+ C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Inc/adc.h \
  C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h \
  C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Inc/stm32f0xx_hal_conf.h \
  C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Inc/main.h \
@@ -25,15 +25,9 @@ Src/main.o: ../Src/main.c \
  C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_i2c.h \
  C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_i2c_ex.h \
  C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr.h \
- C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr_ex.h \
- C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Inc/gpio_config.h \
- C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Inc/gpio.h \
- C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Inc/adc_config.h \
- C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Inc/dma_config.h \
- C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Inc/systemclock_config.h \
- C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Inc/adc.h
+ C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr_ex.h
 
-C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Inc/main.h:
+C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Inc/adc.h:
 
 C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:
 
@@ -86,15 +80,3 @@ C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Drivers/STM32F0xx_HAL_Driver/Inc/
 C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr.h:
 
 C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr_ex.h:
-
-C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Inc/gpio_config.h:
-
-C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Inc/gpio.h:
-
-C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Inc/adc_config.h:
-
-C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Inc/dma_config.h:
-
-C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Inc/systemclock_config.h:
-
-C:/Users/Berkant/Desktop/systemworkbench/BMSv2/Inc/adc.h:

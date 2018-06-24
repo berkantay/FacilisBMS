@@ -4,22 +4,37 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Src/adc.c \
+../Src/adc_config.c \
+../Src/dma_config.c \
+../Src/gpio_config.c \
 ../Src/main.c \
 ../Src/stm32f0xx_hal_msp.c \
 ../Src/stm32f0xx_it.c \
-../Src/system_stm32f0xx.c 
+../Src/system_stm32f0xx.c \
+../Src/systemclock_config.c 
 
 OBJS += \
+./Src/adc.o \
+./Src/adc_config.o \
+./Src/dma_config.o \
+./Src/gpio_config.o \
 ./Src/main.o \
 ./Src/stm32f0xx_hal_msp.o \
 ./Src/stm32f0xx_it.o \
-./Src/system_stm32f0xx.o 
+./Src/system_stm32f0xx.o \
+./Src/systemclock_config.o 
 
 C_DEPS += \
+./Src/adc.d \
+./Src/adc_config.d \
+./Src/dma_config.d \
+./Src/gpio_config.d \
 ./Src/main.d \
 ./Src/stm32f0xx_hal_msp.d \
 ./Src/stm32f0xx_it.d \
-./Src/system_stm32f0xx.d 
+./Src/system_stm32f0xx.d \
+./Src/systemclock_config.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
